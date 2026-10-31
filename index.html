@@ -1,1 +1,455 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#3557a6"><title>五年級英文｜考前練習室</title><style>:root{font-family:system-ui,-apple-system,sans-serif;background:#f3f6ff;color:#27344e}*{box-sizing:border-box}body{margin:0}.top{background:linear-gradient(110deg,#3557a6,#6386d5);color:white;padding:28px 20px;border-radius:0 0 24px 24px}.inside,.main{max-width:830px;margin:auto}h1{margin:5px 0;font-size:30px}.main{padding:15px 17px 60px}.card{background:white;border-radius:18px;padding:20px;margin:13px 0;box-shadow:0 5px 20px #243e7e10}h2{margin-top:0}p{line-height:1.7}.badge{display:inline-block;background:#e5edff;color:#3557a6;border-radius:24px;padding:5px 11px;font-size:13px;font-weight:700}button,select,input{font:inherit;min-height:45px;border-radius:12px;padding:11px}button{border:0;background:#3557a6;color:white;font-weight:700;cursor:pointer}button.light{background:#e8eeff;color:#3557a6}.choices{display:grid;gap:9px}.choices button{color:#263552;background:#f4f7ff;text-align:left;border:2px solid transparent}.choices button.selected{border-color:#3557a6;background:#e2ebff}.choices button.right{border-color:#26905c}.choices button.wrong{border-color:#cf5264}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1}select{width:100%;border:1px solid #cdd9f5;background:white}input{width:100%;border:1px solid #b4c7eb}small,.muted{color:#61718f}.progress{height:10px;background:#e8edfa;border-radius:10px;overflow:hidden;margin:15px 0}.progress>div{height:100%;background:#6488d9}.sentence{font-size:21px;font-weight:700;line-height:1.6}.score{font-size:52px;color:#3557a6;font-weight:800}.answer{padding:12px;background:#eff6ff;border-radius:12px;margin-top:12px}.tabs button{background:white;color:#3557a6}.tabs button.active{background:#1f3571;color:white}.note{background:#edf2ff;padding:13px;border-radius:12px}.review{border-top:1px solid #e4ebfa;padding:12px 0}</style></head><body><header class="top"><div class="inside"><span>國小五年級・英文</span><h1>English Quest 英文考前練習室</h1><p>依照片中的 Unit 1、Unit 2 與兩張評量卷題型設計｜可在 iPad 使用</p></div></header><main class="main"><div class="row tabs"><button onclick="screen('home')">複習重點</button><button onclick="screen('practice')">小練習</button><button onclick="screen('exam')">模擬考</button><button onclick="screen('history')">成績紀錄</button></div><div id="app"></div></main><script>const Q=[{"type": "vocab", "p": "「星期一」的英文是？", "opts": ["Monday", "Friday", "Sunday", "math"], "ans": 0, "ex": "星期一 = Monday。"}, {"type": "vocab", "p": "「星期二」的英文是？", "opts": ["Tuesday", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "星期二 = Tuesday。"}, {"type": "vocab", "p": "「星期三」的英文是？", "opts": ["Wednesday", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "星期三 = Wednesday。"}, {"type": "vocab", "p": "「星期四」的英文是？", "opts": ["Thursday", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "星期四 = Thursday。"}, {"type": "vocab", "p": "「星期五」的英文是？", "opts": ["Friday", "Monday", "Sunday", "math"], "ans": 0, "ex": "星期五 = Friday。"}, {"type": "vocab", "p": "「星期六」的英文是？", "opts": ["Saturday", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "星期六 = Saturday。"}, {"type": "vocab", "p": "「星期日」的英文是？", "opts": ["Sunday", "Monday", "Friday", "math"], "ans": 0, "ex": "星期日 = Sunday。"}, {"type": "vocab", "p": "「數學」的英文是？", "opts": ["math", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "數學 = math。"}, {"type": "vocab", "p": "「英語」的英文是？", "opts": ["English", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "英語 = English。"}, {"type": "vocab", "p": "「藝術」的英文是？", "opts": ["art", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "藝術 = art。"}, {"type": "vocab", "p": "「音樂」的英文是？", "opts": ["music", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "音樂 = music。"}, {"type": "vocab", "p": "「自然科學」的英文是？", "opts": ["science", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "自然科學 = science。"}, {"type": "vocab", "p": "「社會」的英文是？", "opts": ["social studies", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "社會 = social studies。"}, {"type": "vocab", "p": "「體育」的英文是？", "opts": ["PE", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "體育 = PE。"}, {"type": "vocab", "p": "「中文」的英文是？", "opts": ["Chinese", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "中文 = Chinese。"}, {"type": "vocab", "p": "「四十」的英文是？", "opts": ["forty", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "四十 = forty。"}, {"type": "vocab", "p": "「八十」的英文是？", "opts": ["eighty", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "八十 = eighty。"}, {"type": "vocab", "p": "「一百」的英文是？", "opts": ["one hundred", "Monday", "Friday", "Sunday"], "ans": 0, "ex": "一百 = one hundred。"}, {"type": "grammar", "p": "What ___ is today?", "opts": ["day", "color", "time", "class"], "ans": 0, "ex": "What day is today?"}, {"type": "grammar", "p": "It ___ Friday today.", "opts": ["are", "am", "is", "be"], "ans": 2, "ex": "It is Friday today."}, {"type": "grammar", "p": "___ it Monday today?", "opts": ["Do", "Does", "Is", "Are"], "ans": 2, "ex": "Is it Monday today?"}, {"type": "grammar", "p": "No, it ___. It is Tuesday.", "opts": ["doesn't", "isn't", "aren't", "don't"], "ans": 1, "ex": "No, it isn't."}, {"type": "grammar", "p": "Do you ___ math class on Monday?", "opts": ["has", "have", "having", "had"], "ans": 1, "ex": "Do 後使用動詞原形 have。"}, {"type": "grammar", "p": "___ he have English class on Thursday?", "opts": ["Do", "Does", "Is", "Are"], "ans": 1, "ex": "he 用 Does。"}, {"type": "grammar", "p": "Yes, he ___.", "opts": ["do", "does", "is", "has"], "ans": 1, "ex": "Does he...? Yes, he does."}, {"type": "grammar", "p": "No, I ___.", "opts": ["doesn't", "don't", "isn't", "aren't"], "ans": 1, "ex": "Do you...? No, I don't."}, {"type": "grammar", "p": "What ___ is your favorite subject?", "opts": ["day", "class", "subject", "color"], "ans": 2, "ex": "favorite subject = 最喜歡的科目。"}, {"type": "grammar", "p": "We have ___ class tomorrow.", "opts": ["an PE", "PE", "a PE", "the PE"], "ans": 1, "ex": "課表上的科目名稱前一般不加 a/an。"}, {"type": "grammar", "p": "___ is my favorite subject.", "opts": ["english", "English", "ENGLISH class", "an English"], "ans": 1, "ex": "科目 English 大寫。"}, {"type": "grammar", "p": "He ___ sleeping under the table.", "opts": ["am", "are", "is", "do"], "ans": 2, "ex": "He 搭配 is。"}, {"type": "grammar", "p": "Tom and Peter ___ playing with toys.", "opts": ["am", "is", "are", "does"], "ans": 2, "ex": "複數主語用 are。"}, {"type": "grammar", "p": "Dad is cooking ___ the kitchen.", "opts": ["in", "under", "at", "on"], "ans": 0, "ex": "in the kitchen = 在廚房裡。"}, {"type": "grammar", "p": "The dog is hiding ___ the table.", "opts": ["in", "by", "under", "on"], "ans": 2, "ex": "under the table = 桌子下面。"}, {"type": "grammar", "p": "20 + 60 = ___", "opts": ["seventy", "ninety", "eighty", "sixty"], "ans": 2, "ex": "eighty = 80。"}, {"type": "grammar", "p": "I can ___ myself in the mirror.", "opts": ["taste", "hear", "see", "smell"], "ans": 2, "ex": "用眼睛 see。"}, {"type": "grammar", "p": "I use my nose to ___.", "opts": ["hear", "smell", "see", "feel"], "ans": 1, "ex": "鼻子聞 smell。"}, {"type": "grammar", "p": "I use my ears to ___.", "opts": ["hear", "smell", "taste", "feel"], "ans": 0, "ex": "耳朵聽 hear。"}, {"type": "grammar", "p": "When I go to the beach, I ___ the wet sand.", "opts": ["see", "smell", "feel", "hear"], "ans": 2, "ex": "觸摸沙子 feel。"}, {"type": "grammar", "p": "I can ___ something sweet.", "opts": ["taste", "hear", "see", "smell"], "ans": 0, "ex": "甜味 taste。"}, {"type": "grammar", "p": "Which sentence is correct?", "opts": ["They are my teammate.", "It is Sunday today?", "I'm in a hurry.", "She don't have PE."], "ans": 2, "ex": "I'm in a hurry. 語法正確。"}, {"type": "grammar", "p": "Can we go and watch?", "opts": ["No, you can.", "Sure! Follow me.", "Yes, we does.", "No, I do."], "ans": 1, "ex": "Sure! Follow me. 回應邀請合理。"}, {"type": "grammar", "p": "A: Do you have art class on Friday? B: ___", "opts": ["No, I don't.", "Yes, you do.", "I love art class.", "Yes, it is."], "ans": 0, "ex": "應以 Yes, I do / No, I don't 回答。"}, {"type": "grammar", "p": "A: Does Amy have art class on Sunday? B: ___", "opts": ["No, she does.", "Yes, she is.", "No, she doesn't.", "Yes, I do."], "ans": 2, "ex": "Does 問句用 does/doesn't 回答。"}, {"type": "grammar", "p": "A: Does he have PE class on Sunday? B: Yes, ___", "opts": ["he is", "he does", "he do", "I do"], "ans": 1, "ex": "Yes, he does."}, {"type": "grammar", "p": "今天是星期二。回答 Is it Friday today?", "opts": ["Yes, it is.", "No, it isn't. It's Tuesday.", "No, I do.", "Yes, I am."], "ans": 1, "ex": "否定回答並補充 Tuesday。"}, {"type": "grammar", "p": "It is Thursday today. Tomorrow is ___.", "opts": ["Wednesday", "Friday", "Tuesday", "Monday"], "ans": 1, "ex": "Thursday 的隔天是 Friday。"}, {"type": "grammar", "p": "圖上顯示 Friday 有 art class。Do they have art class on Friday?", "opts": ["Yes, they do.", "Yes, they are.", "No, they do.", "Yes, he does."], "ans": 0, "ex": "Do they...? Yes, they do."}, {"type": "grammar", "p": "A: What ___ is it? B: It is Thursday.", "opts": ["day", "days", "subject", "time"], "ans": 0, "ex": "What day is it?"}, {"type": "grammar", "p": "Look! The children ___ reading books.", "opts": ["is", "am", "are", "does"], "ans": 2, "ex": "children 為複數，be 動詞 are。"}, {"type": "grammar", "p": "___ you have music class on Tuesday?", "opts": ["Does", "Are", "Do", "Is"], "ans": 2, "ex": "you 用 Do。"}, {"type": "grammar", "p": "Mary ___ have science class on Monday.", "opts": ["don't", "doesn't", "isn't", "aren't"], "ans": 1, "ex": "Mary 為第三人稱單數。"}, {"type": "grammar", "p": "Which word is different?", "opts": ["juice", "fruit", "meat", "use"], "ans": 3, "ex": "use 是動詞；其他是食物/飲品。"}, {"type": "grammar", "p": "Which word is different?", "opts": ["shirt", "skirt", "jeans", "beach"], "ans": 3, "ex": "beach 是地點；其他是衣物。"}, {"type": "typing", "p": "今天星期幾？（用英文問句）", "opts": [], "ans": "What day is today?", "ex": "What day is today?"}, {"type": "typing", "p": "今天是星期五。（完整句）", "opts": [], "ans": "It's Friday.", "ex": "It's Friday."}, {"type": "typing", "p": "今天不是星期一。（簡短回答）", "opts": [], "ans": "No, it isn't.", "ex": "No, it isn't."}, {"type": "typing", "p": "他星期四有英文課嗎？", "opts": [], "ans": "Does he have English class on Thursday?", "ex": "Does 後使用 have。"}, {"type": "typing", "p": "不，他沒有。（回覆 Does he...?）", "opts": [], "ans": "No, he doesn't.", "ex": "No, he doesn't."}, {"type": "typing", "p": "是的，我有。（回覆 Do you...?）", "opts": [], "ans": "Yes, I do.", "ex": "Yes, I do."}, {"type": "typing", "p": "正在桌子底下睡覺。（He 開頭）", "opts": [], "ans": "He's sleeping under the table.", "ex": "He's sleeping under the table."}, {"type": "typing", "p": "星期三（英文單字）", "opts": [], "ans": "Wednesday", "ex": "星期拼字、首字大寫。"}, {"type": "typing", "p": "社會（英文科目）", "opts": [], "ans": "social studies", "ex": "兩個字，注意拼字。"}, {"type": "typing", "p": "自然科學（英文科目）", "opts": [], "ans": "science", "ex": "science 拼字。"}, {"type": "typing", "p": "星期六（英文單字）", "opts": [], "ans": "Saturday", "ex": "Saturday。"}, {"type": "typing", "p": "音樂（英文單字）", "opts": [], "ans": "music", "ex": "music。"}];const KEY='english_review_v1';let state={page:'home',session:null};const app=document.getElementById('app');const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function shuffle(x){let a=[...x];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}function data(){try{return JSON.parse(localStorage.getItem(KEY))||{records:[]}}catch{return {records:[]}}}function screen(p){state.page=p;state.session=null;render();scrollTo({top:0,behavior:'smooth'})}function render(){if(state.page==='home')home();else if(state.page==='history')history();else if(!state.session)setup();else question()}function home(){app.innerHTML=`<div class="card"><span class="badge">先複習再測驗</span><h2>今天的任務</h2><p>單字、星期、科目、Do / Does、be 動詞、現在進行式、介系詞，以及看圖回答。</p><p>目前有 <b>${Q.length}</b> 道題目；正式考試每次會把題目和選項洗牌。</p><button onclick="screen('practice')">開始練習</button></div><div class="card"><h2>Unit 1｜What Day Is Today?</h2><p><b>星期：</b>Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday</p><p><b>句型：</b>What day is today? → It's Friday. / Is it Monday today? → No, it isn't.</p><p><b>注意：</b>星期首字母大寫，tomorrow 表示明天。</p></div><div class="card"><h2>Unit 2｜Do You Have PE Class?</h2><p><b>科目：</b>math, English, Chinese, science, social studies, art, music, PE</p><p><b>句型：</b>Do you have math class on Monday? → Yes, I do. / Does he have English class on Thursday? → No, he doesn't.</p><p><b>文法：</b>Do＋I/you/we/they；Does＋he/she/it。Does 後一律用原形 have，科目通常不加 a/an。</p></div><div class="card"><h2>生活句型補充</h2><p><b>現在進行式：</b>He is sleeping under the table. / Tom and Peter are playing.</p><p><b>位置：</b>under the table、on the desk、by the box、in the kitchen。</p><p><b>感官：</b>see 看、hear 聽、smell 聞、taste 嚐、feel 感覺。</p><p><b>數字：</b>ten / twenty / thirty / forty / fifty / sixty / seventy / eighty / ninety / one hundred。</p></div><div class="note">提醒：原始評量的聽力題需要音檔。這版以同樣知識點改成可自行操作的閱讀與選擇練習，不會假裝是原始聽力測驗。</div>`}function setup(){let exam=state.page==='exam';app.innerHTML=`<div class="card"><span class="badge">${exam?'正式模擬考':'即時練習'}</span><h2>${exam?'準備好了嗎？':'選擇練習內容'}</h2><p>模仿考卷：Vocabulary、Read & Choose、Look & Write、問答句、數字與情境閱讀；包含鍵盤填答。</p><label>練習範圍</label><select id="part"><option value="all">全部題型</option><option value="vocab">Vocabulary 單字</option><option value="grammar">選擇與閱讀理解</option><option value="typing">填字與短答</option></select><p>題數</p><select id="amount"><option value="10">10 題</option><option value="20" selected>20 題</option><option value="30">30 題</option><option value="999">完整題庫（${Q.length} 題）</option></select><p class="muted">80 分及格；錯題會顯示解析。</p><button onclick="start()">開始${exam?'考試':'練習'}</button></div>`}function start(){let f=document.getElementById('part').value,n=+document.getElementById('amount').value;let ids=shuffle(Q.map((q,i)=>i).filter(i=>f==='all'||Q[i].type===f)).slice(0,n);let maps={};ids.forEach(i=>{if(Q[i].opts.length)maps[i]=shuffle(Q[i].opts.map((_,j)=>j))});state.session={ids,maps,index:0,answers:{},exam:state.page==='exam'};question()}function answer(i){let s=state.session,idx=s.ids[s.index];s.answers[idx]=i;question()}function typed(v){let s=state.session,idx=s.ids[s.index];s.answers[idx]=v}function norm(x){return String(x).toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9]/g,'').replace(/^itis/,'its')}function right(i){let q=Q[i],v=state.session.answers[i];return q.type==='typing'?norm(v)===norm(q.ans):v===q.ans}function question(){let s=state.session,idx=s.ids[s.index],q=Q[idx],v=s.answers[idx],done=!s.exam&&v!==undefined,correct=right(idx);let opts=q.opts.length?s.maps[idx].map((orig,k)=>`<button class="${v===orig?'selected':''} ${done?(orig===q.ans?'right':v===orig?'wrong':''):''}" ${done?'disabled':''} onclick="answer(${orig})">${'ABCD'[k]}. ${esc(q.opts[orig])}</button>`).join(''):`<input aria-label="作答" placeholder="請輸入英文答案" value="${esc(v||'')}" oninput="typed(this.value)">`;app.innerHTML=`<div class="card"><span class="badge">${s.exam?'正式考試':'練習'}・${q.type==='vocab'?'單字':q.type==='typing'?'填寫答案':'閱讀／文法'}</span><h2>第 ${s.index+1} / ${s.ids.length} 題</h2><div class="progress"><div style="width:${100*(s.index+1)/s.ids.length}%"></div></div><p class="sentence">${esc(q.p)}</p><div class="choices">${opts}</div>${done?`<div class="answer"><b>${correct?'答對！':'還可以再加強'}</b><p>參考答案：${esc(q.type==='typing'?q.ans:q.opts[q.ans])}</p><p>${esc(q.ex)}</p></div>`:''}<div class="row" style="margin-top:14px"><button class="light" ${s.index===0?'disabled':''} onclick="move(-1)">上一題</button><button onclick="move(1)">${s.index===s.ids.length-1?'交卷':'下一題'}</button></div>${s.exam?'<small>考試模式：交卷後才公布正解。</small>':''}</div>`}function move(dir){let s=state.session,idx=s.ids[s.index],q=Q[idx];if(dir===1&&(s.answers[idx]===undefined||String(s.answers[idx]).trim()==='')){alert('請先作答');return}if(dir===1&&s.index===s.ids.length-1){finish();return}s.index+=dir;question()}function finish(){let s=state.session;let score=s.ids.filter(i=>right(i)).length,percent=Math.round(score/s.ids.length*100);if(s.exam){let d=data();d.records.push({at:new Date().toLocaleString('zh-TW'),score:percent,count:s.ids.length});d.records=d.records.slice(-50);localStorage.setItem(KEY,JSON.stringify(d))}let wrong=s.ids.filter(i=>!right(i));app.innerHTML=`<div class="card"><h2>${percent>=80?'達到通過標準！':'再練習一次會更好！'}</h2><div class="score">${percent} 分</div><p>答對 ${score}/${s.ids.length} 題</p><button onclick="screen('exam')">再考一次</button> <button class="light" onclick="screen('home')">回複習首頁</button></div><div class="card"><h2>錯題解析（${wrong.length}）</h2>${wrong.length?wrong.map(i=>{let q=Q[i];return `<div class="review"><b>${esc(q.p)}</b><p>你的答案：${esc(q.type==='typing'?s.answers[i]:q.opts[s.answers[i]])}</p><p><b>正解：${esc(q.type==='typing'?q.ans:q.opts[q.ans])}</b></p><p>${esc(q.ex)}</p></div>`}).join(''):'全部答對！'}</div>`}function history(){let d=data();app.innerHTML=`<div class="card"><h2>我的模擬考紀錄</h2>${d.records.length?d.records.slice().reverse().map(r=>`<p>${esc(r.at)}：<b>${r.score} 分</b>（${r.count} 題）</p>`).join(''):'目前沒有考試紀錄。'}<p class="muted">成績僅儲存在這台裝置的瀏覽器。</p></div>`}render();</script></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#3557a6">
+<title>五年級英文｜考前練習室</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;background:#f3f6ff;color:#263552}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f6ff}
+.top{background:linear-gradient(120deg,#3557a6,#6386d5);color:#fff;padding:26px 18px 24px;border-radius:0 0 24px 24px}
+.inside,.main{max-width:900px;margin:auto}
+h1{margin:6px 0 8px;font-size:30px}
+p{line-height:1.7}
+.main{padding:14px 16px 60px}
+.card{background:#fff;border-radius:18px;padding:18px;margin:12px 0;box-shadow:0 6px 20px rgba(36,62,126,.08)}
+.badge{display:inline-block;background:#e5edff;color:#3557a6;border-radius:999px;padding:4px 10px;font-size:13px;font-weight:800}
+h2{margin:8px 0 12px}
+small,.muted{color:#62728f}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1}
+button,select,input,textarea{font:inherit}
+button,select,input,textarea{border-radius:12px}
+button{border:0;background:#3557a6;color:#fff;font-weight:800;padding:12px 15px;min-height:46px;cursor:pointer}
+button.light{background:#e8eeff;color:#3557a6}
+button.ghost{background:#f5f8ff;color:#3557a6;border:1px solid #ccdaf8}
+button:disabled{opacity:.45;cursor:not-allowed}
+select,input,textarea{width:100%;border:1px solid #bfd0f1;padding:12px;background:#fff}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.tabs button{background:#fff;color:#3557a6;border:1px solid #d7e1f8;padding:11px 8px}
+.tabs button.active{background:#1f3571;color:#fff;border-color:#1f3571}
+.progress{height:10px;background:#e8edfa;border-radius:999px;overflow:hidden;margin:14px 0}
+.progress>div{height:100%;background:#6488d9}
+.choices{display:grid;gap:10px}
+.choices button{text-align:left;background:#f4f7ff;color:#263552;border:2px solid transparent}
+.choices button.selected{border-color:#3557a6;background:#e2ebff}
+.choices button.right{border-color:#26905c;background:#eefaf3}
+.choices button.wrong{border-color:#cf5264;background:#fff3f6}
+.sentence{white-space:pre-line;font-size:22px;font-weight:800;line-height:1.55;margin:0 0 12px}
+.answer{padding:14px;background:#eff6ff;border-radius:14px;margin-top:14px}
+.score{font-size:54px;font-weight:900;color:#3557a6;line-height:1}
+.note{background:#edf2ff;padding:14px;border-radius:14px}
+.review{border-top:1px solid #e4ebfa;padding:12px 0}
+.list{margin:8px 0 0 0;padding-left:20px}
+.list li{margin:6px 0}
+.kbd{display:inline-block;background:#eef3ff;border:1px solid #cedafb;border-radius:8px;padding:2px 8px;font-weight:700}
+.writebox{margin-top:10px}
+.writebox textarea{min-height:120px;font-size:24px;line-height:1.55;padding:14px;background:
+linear-gradient(#ffffff,#ffffff) padding-box,
+repeating-linear-gradient(to bottom, transparent 0, transparent 40px, #d8e3fb 40px, #d8e3fb 42px) border-box;
+background-color:#fff;resize:vertical}
+.writebox.small textarea{min-height:96px;font-size:28px}
+.hint{margin-top:10px;padding:10px 12px;border-radius:12px;background:#fff9e7;color:#6f5711;border:1px solid #f0dc8f}
+.wordchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.wordchips span{background:#f2f6ff;border:1px solid #d7e2fa;border-radius:999px;padding:5px 10px;font-size:14px}
+.section-title{margin:6px 0 10px;font-size:18px;font-weight:800;color:#3557a6}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+@media (max-width:680px){.tabs{grid-template-columns:repeat(2,1fr)} .sentence{font-size:20px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inside">
+    <span>國小五年級・英文</span>
+    <h1>English Quest 英文考前練習室</h1>
+    <p>依 Unit 1、Unit 2 與兩張評量卷題型設計｜已加強 <b>手寫拼字</b> 與 <b>短句書寫</b>｜可在 iPad + Apple Pencil 使用</p>
+  </div>
+</header>
+<main class="main">
+  <div class="tabs">
+    <button id="tab-home" onclick="screen('home')">複習重點</button>
+    <button id="tab-practice" onclick="screen('practice')">小練習</button>
+    <button id="tab-handwrite" onclick="screen('handwrite')">手寫拼字</button>
+    <button id="tab-exam" onclick="screen('exam')">模擬考</button>
+    <button id="tab-history" onclick="screen('history')">成績紀錄</button>
+  </div>
+  <div id="app"></div>
+</main>
+<script>
+const QUESTIONS = [
+  {type:'choice', area:'vocab', prompt:'「星期一」的英文是？', options:['Monday','Friday','Sunday','math'], answer:0, explain:'星期一 = Monday。'},
+  {type:'choice', area:'vocab', prompt:'「星期二」的英文是？', options:['Monday','Tuesday','Friday','Sunday'], answer:1, explain:'星期二 = Tuesday。'},
+  {type:'choice', area:'vocab', prompt:'「星期三」的英文是？', options:['Friday','Sunday','Wednesday','Monday'], answer:2, explain:'星期三 = Wednesday。'},
+  {type:'choice', area:'vocab', prompt:'「星期四」的英文是？', options:['Sunday','Thursday','Friday','Monday'], answer:1, explain:'星期四 = Thursday。'},
+  {type:'choice', area:'vocab', prompt:'「星期五」的英文是？', options:['Monday','Sunday','math','Friday'], answer:3, explain:'星期五 = Friday。'},
+  {type:'choice', area:'vocab', prompt:'「星期六」的英文是？', options:['Saturday','Monday','Friday','Sunday'], answer:0, explain:'星期六 = Saturday。'},
+  {type:'choice', area:'vocab', prompt:'「星期日」的英文是？', options:['Monday','Sunday','Friday','math'], answer:1, explain:'星期日 = Sunday。'},
+  {type:'choice', area:'vocab', prompt:'「數學」的英文是？', options:['Friday','Sunday','math','Monday'], answer:2, explain:'數學 = math。'},
+  {type:'choice', area:'vocab', prompt:'「英語」的英文是？', options:['English','Monday','Friday','Sunday'], answer:0, explain:'英語 = English。'},
+  {type:'choice', area:'vocab', prompt:'「藝術」的英文是？', options:['Monday','art','Friday','Sunday'], answer:1, explain:'藝術 = art。'},
+  {type:'choice', area:'vocab', prompt:'「音樂」的英文是？', options:['Monday','Friday','music','Sunday'], answer:2, explain:'音樂 = music。'},
+  {type:'choice', area:'vocab', prompt:'「自然科學」的英文是？', options:['Monday','science','Friday','Sunday'], answer:1, explain:'自然科學 = science。'},
+  {type:'choice', area:'vocab', prompt:'「社會」的英文是？', options:['Sunday','Monday','social studies','Friday'], answer:2, explain:'社會 = social studies。'},
+  {type:'choice', area:'vocab', prompt:'「體育」的英文是？', options:['Monday','Friday','Sunday','PE'], answer:3, explain:'體育 = PE。'},
+  {type:'choice', area:'vocab', prompt:'「中文」的英文是？', options:['Chinese','Monday','Friday','Sunday'], answer:0, explain:'中文 = Chinese。'},
+  {type:'choice', area:'vocab', prompt:'「四十」的英文是？', options:['sixty','forty','ninety','thirty'], answer:1, explain:'四十 = forty。'},
+  {type:'choice', area:'vocab', prompt:'「八十」的英文是？', options:['eighty','seventy','ninety','one hundred'], answer:0, explain:'八十 = eighty。'},
+  {type:'choice', area:'vocab', prompt:'「一百」的英文是？', options:['forty','one hundred','twenty','eighty'], answer:1, explain:'一百 = one hundred。'},
+
+  {type:'choice', area:'grammar', prompt:'What ___ is today?', options:['day','color','time','class'], answer:0, explain:'正確句型：What day is today?'},
+  {type:'choice', area:'grammar', prompt:'It ___ Friday today.', options:['are','am','is','be'], answer:2, explain:'It is Friday today.'},
+  {type:'choice', area:'grammar', prompt:'___ it Monday today?', options:['Do','Does','Is','Are'], answer:2, explain:'Is it Monday today?'},
+  {type:'choice', area:'grammar', prompt:'No, it ___. It is Tuesday.', options:['doesn\'t','aren\'t','isn\'t','don\'t'], answer:2, explain:'No, it isn\'t.'},
+  {type:'choice', area:'grammar', prompt:'Do you ___ math class on Monday?', options:['has','have','having','had'], answer:1, explain:'Do 後面要用原形 have。'},
+  {type:'choice', area:'grammar', prompt:'___ he have English class on Thursday?', options:['Do','Does','Is','Are'], answer:1, explain:'he 用 Does。'},
+  {type:'choice', area:'grammar', prompt:'Yes, he ___.', options:['do','does','is','has'], answer:1, explain:'Does he...? → Yes, he does.'},
+  {type:'choice', area:'grammar', prompt:'No, I ___.', options:['doesn\'t','don\'t','isn\'t','aren\'t'], answer:1, explain:'Do you...? → No, I don\'t.'},
+  {type:'choice', area:'grammar', prompt:'What ___ is your favorite subject?', options:['day','class','subject','color'], answer:2, explain:'favorite subject = 最喜歡的科目。'},
+  {type:'choice', area:'grammar', prompt:'We have ___ class tomorrow.', options:['an PE','PE','a PE','the PE'], answer:1, explain:'科目前通常不加 a / an。'},
+  {type:'choice', area:'grammar', prompt:'___ is my favorite subject.', options:['english','English','ENGLISH class','an English'], answer:1, explain:'科目 English 首字要大寫。'},
+  {type:'choice', area:'grammar', prompt:'He ___ sleeping under the table.', options:['am','are','is','do'], answer:2, explain:'He 搭配 is。'},
+  {type:'choice', area:'grammar', prompt:'Tom and Peter ___ playing with toys.', options:['am','is','are','does'], answer:2, explain:'Tom and Peter 是複數，用 are。'},
+  {type:'choice', area:'grammar', prompt:'Dad is cooking ___ the kitchen.', options:['in','under','at','on'], answer:0, explain:'in the kitchen = 在廚房裡。'},
+  {type:'choice', area:'grammar', prompt:'The dog is hiding ___ the table.', options:['in','by','under','on'], answer:2, explain:'under the table = 在桌子底下。'},
+  {type:'choice', area:'grammar', prompt:'20 + 60 = ___', options:['seventy','ninety','eighty','sixty'], answer:2, explain:'20 + 60 = 80 = eighty。'},
+  {type:'choice', area:'grammar', prompt:'I can ___ myself in the mirror.', options:['taste','hear','see','smell'], answer:2, explain:'用眼睛看 → see。'},
+  {type:'choice', area:'grammar', prompt:'I use my nose to ___.', options:['hear','smell','see','feel'], answer:1, explain:'鼻子聞 → smell。'},
+  {type:'choice', area:'grammar', prompt:'I use my ears to ___.', options:['hear','smell','taste','feel'], answer:0, explain:'耳朵聽 → hear。'},
+  {type:'choice', area:'grammar', prompt:'When I go to the beach, I ___ the wet sand.', options:['see','smell','feel','hear'], answer:2, explain:'摸到沙子 → feel。'},
+  {type:'choice', area:'grammar', prompt:'I can ___ something sweet.', options:['taste','hear','see','smell'], answer:0, explain:'嚐到甜味 → taste。'},
+  {type:'choice', area:'grammar', prompt:'Which sentence is correct?', options:['They are my teammate.','It is Sunday today?','I\'m in a hurry.','She don\'t have PE.'], answer:2, explain:'I\'m in a hurry. 句子完整且正確。'},
+  {type:'choice', area:'grammar', prompt:'Can we go and watch?', options:['No, you can.','Sure! Follow me.','Yes, we does.','No, I do.'], answer:1, explain:'這是合理的回應。'},
+  {type:'choice', area:'grammar', prompt:'A: Do you have art class on Friday? B: ___', options:['No, I don\'t.','Yes, you do.','I love art class.','Yes, it is.'], answer:0, explain:'Do you...? 應回答 Yes, I do. / No, I don\'t.'},
+  {type:'choice', area:'grammar', prompt:'A: Does Amy have art class on Sunday? B: ___', options:['No, she does.','Yes, she is.','No, she doesn\'t.','Yes, I do.'], answer:2, explain:'Does Amy...? → No, she doesn\'t.'},
+  {type:'choice', area:'grammar', prompt:'A: Does he have PE class on Sunday? B: Yes, ___', options:['he is','he does','he do','I do'], answer:1, explain:'Yes, he does.'},
+  {type:'choice', area:'grammar', prompt:'今天是星期二。回答 Is it Friday today?', options:['Yes, it is.','No, it isn\'t. It\'s Tuesday.','No, I do.','Yes, I am.'], answer:1, explain:'今天是 Tuesday，所以要否定回答。'},
+  {type:'choice', area:'grammar', prompt:'It is Thursday today. Tomorrow is ___.', options:['Wednesday','Friday','Tuesday','Monday'], answer:1, explain:'Thursday 的明天是 Friday。'},
+  {type:'choice', area:'grammar', prompt:'圖上顯示 Friday 有 art class。Do they have art class on Friday?', options:['Yes, they do.','Yes, they are.','No, they do.','Yes, he does.'], answer:0, explain:'Do they...? → Yes, they do.'},
+  {type:'choice', area:'grammar', prompt:'A: What ___ is it? B: It is Thursday.', options:['day','days','subject','time'], answer:0, explain:'正確句型：What day is it?'},
+  {type:'choice', area:'grammar', prompt:'Look! The children ___ reading books.', options:['is','am','are','does'], answer:2, explain:'children 是複數，用 are。'},
+  {type:'choice', area:'grammar', prompt:'___ you have music class on Tuesday?', options:['Does','Are','Do','Is'], answer:2, explain:'you 搭配 Do。'},
+  {type:'choice', area:'grammar', prompt:'Mary ___ have science class on Monday.', options:['don\'t','doesn\'t','isn\'t','aren\'t'], answer:1, explain:'Mary 為第三人稱單數，用 doesn\'t。'},
+  {type:'choice', area:'grammar', prompt:'Which word is different?', options:['juice','fruit','meat','use'], answer:3, explain:'use 是動詞；其他是食物或飲料類。'},
+  {type:'choice', area:'grammar', prompt:'Which word is different?', options:['shirt','skirt','jeans','beach'], answer:3, explain:'beach 是地點；其他是衣物。'},
+  {type:'choice', area:'grammar', prompt:'Which word is different?', options:['dig','juice','play','turn'], answer:1, explain:'juice 是名詞；其他多為動作。'},
+  {type:'choice', area:'grammar', prompt:'Which word is different?', options:['hat','vest','turn','chat'], answer:1, explain:'vest 是衣物；其他是動作或活動。'},
+
+  {type:'write', area:'write', prompt:'今天星期幾？請用英文問句回答。', answer:'What day is today?', explain:'句型：What day is today?', hint:'首字 W，4 個字。'},
+  {type:'write', area:'write', prompt:'今天是星期五。請寫完整英文句。', answer:"It\'s Friday.", explain:'也可以寫 It is Friday.', hint:'開頭是 It。'},
+  {type:'write', area:'write', prompt:'今天不是星期一。請寫簡短回答。', answer:"No, it isn\'t.", explain:'否定回答：No, it isn\'t.', hint:'第一個字是 No。'},
+  {type:'write', area:'write', prompt:'他星期四有英文課嗎？請寫英文問句。', answer:'Does he have English class on Thursday?', explain:'Does 後用 have。English 與 Thursday 首字要大寫。', hint:'開頭是 Does he...'},
+  {type:'write', area:'write', prompt:'不，他沒有。（回答上一題）', answer:"No, he doesn\'t.", explain:'Does he...? → No, he doesn\'t.', hint:'第一個字是 No。'},
+  {type:'write', area:'write', prompt:'是的，我有。（回答 Do you...?）', answer:'Yes, I do.', explain:'Do you...? → Yes, I do.', hint:'開頭是 Yes。'},
+  {type:'write', area:'write', prompt:'請寫出：He\'s sleeping under the table.', answer:"He\'s sleeping under the table.", explain:'現在進行式：He is / He\'s + V-ing。', hint:'開頭是 He\'s。'},
+  {type:'write', area:'write', prompt:'請寫出：Do you have music class on Tuesday?', answer:'Do you have music class on Tuesday?', explain:'Do you have ... on Tuesday?', hint:'開頭是 Do you...'},
+
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：星期三', answer:'Wednesday', explain:'Wednesday 首字大寫。', hint:'W 開頭，共 9 個字母。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：星期四', answer:'Thursday', explain:'Thursday 首字大寫。', hint:'T 開頭，共 8 個字母。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：星期六', answer:'Saturday', explain:'Saturday 首字大寫。', hint:'S 開頭，共 8 個字母。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：自然科學', answer:'science', explain:'science 全部小寫。', hint:'s 開頭，共 7 個字母。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：社會', answer:'social studies', explain:'social studies 兩個字。', hint:'第一個字 social，總共 2 個字。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：體育', answer:'PE', explain:'PE 是 physical education 的縮寫，兩個字母都大寫。', hint:'只有 2 個大寫字母。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：中文', answer:'Chinese', explain:'Chinese 首字大寫。', hint:'C 開頭。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：四十', answer:'forty', explain:'注意是 forty，不是 fourty。', hint:'f 開頭，共 5 個字母。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：八十', answer:'eighty', explain:'eighty 共 6 個字母。', hint:'e 開頭，共 6 個字母。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫單字：一百', answer:'one hundred', explain:'two words：one + hundred。', hint:'共 2 個字。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫句子：Today is Tuesday.（改寫成 It 開頭）', answer:"It\'s Tuesday.", explain:'可以寫 It is Tuesday. 或 It\'s Tuesday.', hint:'It 開頭。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫問句：你星期五有美術課嗎？', answer:'Do you have art class on Friday?', explain:'Do you have ... on Friday?', hint:'開頭是 Do you...'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫短答：Yes, she does.', answer:'Yes, she does.', explain:'回答 Does she...? → Yes, she does.', hint:'Yes 開頭。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫短答：No, I don\'t.', answer:"No, I don\'t.", explain:'回答 Do you...? → No, I don\'t.', hint:'No 開頭。'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫句子：The dog is hiding under the table.', answer:'The dog is hiding under the table.', explain:'under the table = 在桌子底下。', hint:'開頭是 The dog...'},
+  {type:'handwrite', area:'handwrite', prompt:'請手寫句子：Dad is cooking in the kitchen.', answer:'Dad is cooking in the kitchen.', explain:'in the kitchen = 在廚房裡。', hint:'開頭是 Dad...'}
+];
+
+// 新增：依照評量卷設計的「問句—答句」手寫題與拼字強化題。
+QUESTIONS.push(
+  {type:'dialog',area:'dialog',context:'日曆顯示今天是星期五（Friday）。',prompt:'A: Is it Friday today?\nB: ________（請寫完整回答）',answer:"Yes, it is. It's Friday.",explain:'Is it...? 肯定答句是 Yes, it is.；接著可補充 It’s Friday。',hint:'Yes, it ... / It\'s ...'},
+  {type:'dialog',area:'dialog',context:'日曆顯示今天是星期二（Tuesday）。',prompt:'A: Is it Friday today?\nB: ________（請寫完整回答）',answer:"No, it isn't. It's Tuesday.",explain:'不是 Friday，先回答 No, it isn’t.，再寫 It’s Tuesday.',hint:'No, it ... / It\'s Tuesday.'},
+  {type:'dialog',area:'dialog',context:'日曆顯示今天是星期一（Monday）。',prompt:'A: Is it Monday today?\nB: ________（請寫完整回答）',answer:"Yes, it is. It's Monday.",explain:'星期一的肯定回答：Yes, it is. It’s Monday.',hint:'Yes, it ...'},
+  {type:'dialog',area:'dialog',context:'日曆顯示今天是星期日（Sunday）。',prompt:'A: Is it Saturday today?\nB: ________（請寫完整回答）',answer:"No, it isn't. It's Sunday.",explain:'Saturday 是星期六，Sunday 才是星期日。',hint:'No, it ...'},
+  {type:'dialog',area:'dialog',context:'日曆顯示今天是星期四（Thursday）。',prompt:'A: What day is today?\nB: ________',answer:"It's Thursday.",explain:'What day...? → It’s Thursday.',hint:'It\'s Th...'},
+  {type:'dialog',area:'dialog',context:'日曆顯示今天是星期三（Wednesday）。',prompt:'A: What day is it today?\nB: ________',answer:"It's Wednesday.",explain:'Wednesday 星期三，注意拼字。',hint:'It\'s Wed...'},
+  {type:'dialog',area:'dialog',context:'今天是星期六（Saturday）。題目問明天。',prompt:'A: What day is tomorrow?\nB: ________',answer:"It's Sunday.",explain:'Saturday 的隔天是 Sunday。',hint:'It\'s Su...'},
+  {type:'dialog',area:'dialog',context:'今天是星期一（Monday）。題目問明天。',prompt:'A: What day is tomorrow?\nB: ________',answer:"It's Tuesday.",explain:'Monday 的隔天是 Tuesday。',hint:'It\'s Tu...'},
+  {type:'dialog',area:'dialog',context:'你星期五有美術課（art class）。',prompt:'A: Do you have art class on Friday?\nB: ________',answer:'Yes, I do.',explain:'問 Do you...? → 答 Yes, I do.，不可寫 Yes, I am.',hint:'Yes, I ...'},
+  {type:'dialog',area:'dialog',context:'你星期一沒有體育課（PE class）。',prompt:'A: Do you have PE class on Monday?\nB: ________',answer:"No, I don't.",explain:'Do you...? → No, I don’t.',hint:'No, I ...'},
+  {type:'dialog',area:'dialog',context:'課表顯示：Lucy 星期四有英文課（English class）。',prompt:'A: Does Lucy have English class on Thursday?\nB: ________',answer:'Yes, she does.',explain:'Lucy 是女生，Does Lucy...? → Yes, she does.',hint:'Yes, she ...'},
+  {type:'dialog',area:'dialog',context:'課表顯示：Tom 星期二沒有數學課（math class）。',prompt:'A: Does Tom have math class on Tuesday?\nB: ________',answer:"No, he doesn't.",explain:'Does Tom...? → No, he doesn’t.',hint:'No, he ...'},
+  {type:'dialog',area:'dialog',context:'星期五（Friday）兩個同學都有美術課。',prompt:'A: Do they have art class on Friday?\nB: ________',answer:'Yes, they do.',explain:'Do they...? → Yes, they do.',hint:'Yes, they ...'},
+  {type:'dialog',area:'dialog',context:'星期六（Saturday）孩子們沒有自然科學課。',prompt:'A: Do they have science class on Saturday?\nB: ________',answer:"No, they don't.",explain:'Do they...? → No, they don’t.',hint:'No, they ...'},
+  {type:'dialog',area:'dialog',context:'課表顯示：Amy 星期三有中文課。',prompt:'A: Does Amy have Chinese class on Wednesday?\nB: ________',answer:'Yes, she does.',explain:'Does Amy...? → Yes, she does.',hint:'Yes, she ...'},
+  {type:'dialog',area:'dialog',context:'課表顯示：Dad 星期日沒有體育課。',prompt:'A: Does Dad have PE class on Sunday?\nB: ________',answer:"No, he doesn't.",explain:'Dad 用 he，否定用 doesn’t。',hint:'No, he ...'},
+  {type:'dialog',area:'dialog',context:'今天是星期二；同學以英文問星期。',prompt:'A: What day is it?\nB: ________',answer:"It's Tuesday.",explain:'What day is it? → It’s Tuesday.',hint:'It\'s Tu...'},
+  {type:'dialog',area:'dialog',context:'今天是星期日；同學問今天是不是星期日。',prompt:'A: Is it Sunday today?\nB: ________',answer:"Yes, it is. It's Sunday.",explain:'Yes, it is. 是 Is it...? 的肯定回答。',hint:'Yes, it ...'},
+  {type:'dialog',area:'dialog',context:'你星期三有數學課。',prompt:'A: Do you have math class on Wednesday?\nB: ________',answer:'Yes, I do.',explain:'Yes, I do. 與 Do you...? 搭配。',hint:'Yes, I ...'},
+  {type:'dialog',area:'dialog',context:'你星期日沒有音樂課。',prompt:'A: Do you have music class on Sunday?\nB: ________',answer:"No, I don't.",explain:'No, I don’t. 與 Do you...? 搭配。',hint:'No, I ...'},
+  ...[
+    ['星期一','Monday','M 開頭；6 個字母。'],['星期二','Tuesday','T 開頭；7 個字母。'],['星期五','Friday','F 開頭；6 個字母。'],['星期日','Sunday','S 開頭；6 個字母。'],
+    ['數學','math','m 開頭；4 個字母。'],['英語','English','E 開頭；7 個字母。'],['藝術','art','a 開頭；3 個字母。'],['音樂','music','m 開頭；5 個字母。'],
+    ['三十','thirty','th 開頭。'],['五十','fifty','f 開頭。'],['六十','sixty','s 開頭。'],['七十','seventy','s 開頭。'],['九十','ninety','n 開頭。'],
+    ['今天','today','t 開頭。'],['明天','tomorrow','t 開頭。'],['科目','subject','s 開頭。'],['避開','avoid','a 開頭。'],
+    ['撞到','bump into','共兩個字。'],['隊友','teammate','team + mate。'],['比賽','contest','c 開頭。'],['小心','be careful','兩個字。'],
+    ['預訂','book','b 開頭。'],['門票','ticket','t 開頭。'],['完成','done','d 開頭。'],['恐龍','dinosaur','d 開頭。']
+  ].map(([zh,en,h])=>({type:'handwrite',area:'handwrite',prompt:'請用 Apple Pencil 拼寫：'+zh,answer:en,explain:'正確拼字：'+en,hint:h}))
+);
+
+const STORE_KEY = 'english_review_v2';
+const state = { page:'home', session:null };
+const app = document.getElementById('app');
+
+function esc(x){ return String(x).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function shuffle(arr){ let a=[...arr]; for(let i=a.length-1;i>0;i--){ let j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function storage(){ try{return JSON.parse(localStorage.getItem(STORE_KEY)) || {records:[]}; }catch(e){ return {records:[]}; } }
+function saveStorage(obj){ localStorage.setItem(STORE_KEY, JSON.stringify(obj)); }
+function normalize(t){
+  return String(t||'')
+    .toLowerCase()
+    .replace(/[’‘`]/g, "'")
+    .replace(/\bit is\b/g,'it\'s')
+    .replace(/\bhe is\b/g,"he\'s")
+    .replace(/\s+/g,' ')
+    .trim()
+    .replace(/[^a-z0-9' ]/g,'');
+}
+function pageLabel(p){ return ({home:'複習重點',practice:'小練習',handwrite:'手寫拼字',exam:'模擬考',history:'成績紀錄'})[p] || ''; }
+function updateTabs(){ ['home','practice','handwrite','exam','history'].forEach(p=>{ const el=document.getElementById('tab-'+p); if(el) el.classList.toggle('active',state.page===p); }); }
+function screen(p){ state.page=p; state.session=null; updateTabs(); render(); window.scrollTo({top:0,behavior:'smooth'}); }
+function render(){ updateTabs(); if(state.page==='home') return renderHome(); if(state.page==='history') return renderHistory(); if(!state.session) return renderSetup(); return renderQuestion(); }
+
+function renderHome(){
+  const total = QUESTIONS.length;
+  const handCount = QUESTIONS.filter(q=>q.type==='handwrite').length;
+  app.innerHTML = `
+  <div class="card">
+    <span class="badge">先複習再測驗</span>
+    <h2>今天的任務</h2>
+    <p>這一版新增了考卷式 <b>上句英文問句＋下句自己寫英文回答</b>，並特別加強 <b>手寫拼字</b>、<b>句型短答</b> 與 <b>iPad Pencil 書寫作答</b>。如果孩子的拼字基礎比較弱，建議先從「手寫拼字」開始，再做小練習或模擬考。</p>
+    <div class="grid2">
+      <div class="note">
+        <div class="section-title">使用建議</div>
+        <ul class="list">
+          <li>在 iPad 的作答框內，可直接用 <b>Apple Pencil 手寫</b>，系統會用 Scribble 幫忙轉成文字。</li>
+          <li>先按 <span class="kbd">提示</span> 看首字母，再自己拼完整單字。</li>
+          <li>練上下句時先看情境線索，完整寫出 Yes / No 和後面的句子。</li>
+          <li>手寫題做完後再按 <span class="kbd">檢查答案</span>，避免太快看正解。</li>
+        </ul>
+      </div>
+      <div class="note">
+        <div class="section-title">目前題庫</div>
+        <ul class="list">
+          <li>總題數：<b>${total}</b></li>
+          <li>手寫拼字／短句：<b>${handCount}</b> 題</li>
+          <li>上下句問答：<b>${QUESTIONS.filter(q=>q.type==='dialog').length}</b> 題</li>
+          <li>選擇題與閱讀題：<b>${QUESTIONS.filter(q=>q.type==='choice').length}</b> 題</li>
+          <li>短句書寫：<b>${QUESTIONS.filter(q=>q.type==='write').length}</b> 題</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button onclick="screen('handwrite')">先做手寫拼字</button>
+      <button class="light" onclick="screen('practice')">開始一般練習</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Unit 1｜What Day Is Today?</h2>
+    <p><b>星期：</b>Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday</p>
+    <p><b>句型：</b>What day is today? → It\'s Friday. / Is it Monday today? → No, it isn\'t.</p>
+    <p><b>注意：</b>星期首字母要大寫，tomorrow 表示明天。</p>
+    <div class="wordchips"><span>Monday</span><span>Tuesday</span><span>Wednesday</span><span>Thursday</span><span>Friday</span><span>Saturday</span><span>Sunday</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Unit 2｜Do You Have PE Class?</h2>
+    <p><b>科目：</b>math, English, Chinese, science, social studies, art, music, PE</p>
+    <p><b>句型：</b>Do you have math class on Monday? → Yes, I do. / Does he have English class on Thursday? → No, he doesn\'t.</p>
+    <p><b>文法：</b>Do＋I/you/we/they；Does＋he/she/it。Does 後一律用原形 <b>have</b>。</p>
+    <div class="wordchips"><span>math</span><span>English</span><span>Chinese</span><span>science</span><span>social studies</span><span>art</span><span>music</span><span>PE</span></div>
+  </div>
+
+  <div class="card">
+    <h2>生活句型補充</h2>
+    <p><b>現在進行式：</b>He\'s sleeping under the table. / Tom and Peter are playing.</p>
+    <p><b>位置：</b>under the table、on the desk、by the box、in the kitchen。</p>
+    <p><b>感官：</b>see、hear、smell、taste、feel。</p>
+    <p><b>數字：</b>ten / twenty / thirty / forty / fifty / sixty / seventy / eighty / ninety / one hundred。</p>
+  </div>
+
+  <div class="note">提醒：原考卷中的聽力題這裡改為同知識點的閱讀、拼字與手寫練習，避免假裝有音檔但其實沒有。</div>`;
+}
+
+function renderSetup(){
+  const isExam = state.page==='exam';
+  const isHand = state.page==='handwrite';
+  app.innerHTML = `
+  <div class="card">
+    <span class="badge">${isExam?'正式模擬考':isHand?'Apple Pencil 練習':'即時練習'}</span>
+    <h2>${isExam?'準備好了嗎？':isHand?'選擇手寫拼字內容':'選擇練習內容'}</h2>
+    <p>${isHand?'建議讓孩子直接在作答框手寫，先練拼字與短句。':'模仿考卷題型：單字、選擇、問答句、看圖概念、短答與拼字。'}</p>
+
+    <label>練習範圍</label>
+    <select id="part">
+      ${isHand ? `
+        <option value="handwrite" selected>手寫拼字與短句</option>
+        <option value="write">短句書寫</option>
+        <option value="dialog">上下句情境問答（新）</option>
+        <option value="mixed-write">手寫＋問答混合</option>` : `
+        <option value="all">全部題型</option>
+        <option value="vocab">Vocabulary 單字</option>
+        <option value="grammar">選擇與閱讀</option>
+        <option value="write">短句書寫</option>
+        <option value="handwrite">手寫拼字</option>
+        <option value="dialog">上下句情境問答（新）</option>`}
+    </select>
+
+    <p>題數</p>
+    <select id="amount">
+      <option value="8">8 題</option>
+      <option value="12" selected>12 題</option>
+      <option value="20">20 題</option>
+      <option value="999">完整題庫</option>
+    </select>
+
+    <p class="muted">${isExam?'模擬考不顯示提示，交卷後才看解析。':'練習模式可用提示，特別適合拼字基礎較弱時慢慢練。'}</p>
+    <button onclick="start()">開始${isExam?'考試':isHand?'手寫練習':'練習'}</button>
+  </div>`;
+}
+
+function buildIds(part, amount){
+  let pool = QUESTIONS.map((q,i)=>({q,i}));
+  if(state.page==='handwrite'){
+    if(part==='handwrite') pool = pool.filter(x=>x.q.type==='handwrite');
+    else if(part==='write') pool = pool.filter(x=>x.q.type==='write');
+    else if(part==='dialog') pool = pool.filter(x=>x.q.type==='dialog');
+    else pool = pool.filter(x=>['handwrite','write','dialog'].includes(x.q.type));
+  }else if(part==='all'){
+    // no filter
+  }else if(part==='vocab'){
+    pool = pool.filter(x=>x.q.area==='vocab');
+  }else if(part==='grammar'){
+    pool = pool.filter(x=>x.q.area==='grammar');
+  }else if(part==='write'){
+    pool = pool.filter(x=>x.q.type==='write');
+  }else if(part==='handwrite'){
+    pool = pool.filter(x=>x.q.type==='handwrite');
+  }else if(part==='dialog'){
+    pool = pool.filter(x=>x.q.type==='dialog');
+  }
+  return shuffle(pool.map(x=>x.i)).slice(0, amount);
+}
+
+function start(){
+  const part = document.getElementById('part').value;
+  const amount = Number(document.getElementById('amount').value);
+  const ids = buildIds(part, amount===999?9999:amount);
+  const maps = {};
+  ids.forEach(i=>{ if(QUESTIONS[i].options){ maps[i] = shuffle(QUESTIONS[i].options.map((_,idx)=>idx)); } });
+  state.session = { ids, maps, index:0, answers:{}, checked:{}, hints:{}, exam: state.page==='exam' };
+  renderQuestion();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function currentIndex(){ return state.session.ids[state.session.index]; }
+function currentQ(){ return QUESTIONS[currentIndex()]; }
+function setChoice(originalIndex){ state.session.answers[currentIndex()] = originalIndex; renderQuestion(); }
+function setWrite(value){ state.session.answers[currentIndex()] = value; }
+function toggleHint(){ state.session.hints[currentIndex()] = true; renderQuestion(); }
+function answerText(i){ const q=QUESTIONS[i], a=state.session.answers[i]; if(a===undefined) return ''; return q.type==='choice' ? q.options[a] : a; }
+function isCorrect(i){ const q=QUESTIONS[i], a=state.session.answers[i]; if(q.type==='choice') return a===q.answer; return normalize(a)===normalize(q.answer); }
+function canCheck(){ const q=currentQ(), a=state.session.answers[currentIndex()]; return !(a===undefined || String(a).trim()===''); }
+function checkAnswer(){ if(!canCheck()){ alert('請先作答'); return; } state.session.checked[currentIndex()] = true; renderQuestion(); }
+function move(dir){
+  const s=state.session, idx=currentIndex();
+  if(dir===1){
+    if(!canCheck()){ alert('請先作答'); return; }
+    if(!s.exam && !s.checked[idx]){ alert('請先按「檢查答案」'); return; }
+    if(s.index===s.ids.length-1){ finish(); return; }
+    s.index += 1;
+  } else {
+    if(s.index===0) return;
+    s.index -= 1;
+  }
+  renderQuestion();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderQuestion(){
+  const s=state.session, idx=currentIndex(), q=currentQ(), checked=!!s.checked[idx], ans=s.answers[idx], showHint=!!s.hints[idx];
+  let body='';
+  if(q.type==='choice'){
+    const order=s.maps[idx];
+    body = `<div class="choices">` + order.map((orig,k)=>{
+      const cls = [ans===orig?'selected':''];
+      if(checked){
+        if(orig===q.answer) cls.push('right');
+        else if(ans===orig) cls.push('wrong');
+      }
+      return `<button class="${cls.join(' ')}" onclick="setChoice(${orig})">${'ABCD'[k]}. ${esc(q.options[orig])}</button>`;
+    }).join('') + `</div>`;
+  }else{
+    const small = normalize(q.answer).split(' ').length<=2 && q.answer.length<=18 ? ' small' : '';
+    body = `<div class="writebox${small}">
+      <textarea aria-label="作答" spellcheck="false" autocapitalize="off" placeholder="可直接用 iPad 筆在這裡手寫作答" oninput="setWrite(this.value)">${esc(ans||'')}</textarea>
+    </div>`;
+  }
+  const label = q.type==='choice' ? (q.area==='vocab'?'單字選擇':'閱讀／文法') : (q.type==='handwrite'?'手寫拼字':q.type==='dialog'?'上下句問答':'短句書寫');
+  app.innerHTML = `
+    <div class="card">
+      <span class="badge">${s.exam?'正式考試':'練習'}・${label}</span>
+      <h2>第 ${s.index+1} / ${s.ids.length} 題</h2>
+      <div class="progress"><div style="width:${100*(s.index+1)/s.ids.length}%"></div></div>
+      ${q.context ? `<div class="note" style="margin-bottom:12px"><b>情境線索：</b>${esc(q.context)}</div>` : ''}<p class="sentence">${esc(q.prompt)}</p>
+      ${body}
+      ${(!s.exam && showHint && q.hint) ? `<div class="hint"><b>提示：</b>${esc(q.hint)}</div>` : ''}
+      ${(!s.exam && checked) ? `<div class="answer"><b>${isCorrect(idx)?'答對了！':'再加油，這題可以再練一次'}</b><p><b>參考答案：</b>${esc(q.type==='choice' ? q.options[q.answer] : q.answer)}</p><p>${esc(q.explain)}</p></div>` : ''}
+      <div class="row" style="margin-top:14px">
+        <button class="light" ${s.index===0?'disabled':''} onclick="move(-1)">上一題</button>
+        ${(!s.exam && q.type!=='choice' && q.hint) ? `<button class="ghost" onclick="toggleHint()">提示</button>` : (!s.exam && q.hint ? `<button class="ghost" onclick="toggleHint()">提示</button>` : '')}
+        ${!s.exam ? `<button class="ghost" onclick="checkAnswer()">檢查答案</button>` : ''}
+        <button onclick="move(1)">${s.index===s.ids.length-1?'交卷':'下一題'}</button>
+      </div>
+      <p class="muted" style="margin-top:10px">${s.exam?'模擬考模式：不顯示提示與正解。':'建議先自己手寫，再按檢查答案。'}</p>
+    </div>`;
+}
+
+function finish(){
+  const s=state.session;
+  const correct = s.ids.filter(i=>isCorrect(i)).length;
+  const percent = Math.round(correct / s.ids.length * 100);
+  if(s.exam){
+    const d = storage();
+    d.records.push({at:new Date().toLocaleString('zh-TW'), score:percent, count:s.ids.length});
+    d.records = d.records.slice(-50);
+    saveStorage(d);
+  }
+  const wrong = s.ids.filter(i=>!isCorrect(i));
+  app.innerHTML = `
+    <div class="card">
+      <h2>${percent>=80?'達到通過標準！':'再練一次會更熟喔！'}</h2>
+      <div class="score">${percent}</div>
+      <p>答對 ${correct} / ${s.ids.length} 題</p>
+      <div class="row" style="margin-top:10px">
+        <button onclick="screen('${state.page==='exam'?'exam':state.page==='handwrite'?'handwrite':'practice'}')">再做一次</button>
+        <button class="light" onclick="screen('home')">回複習首頁</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>錯題解析（${wrong.length}）</h2>
+      ${wrong.length ? wrong.map(i=>{
+        const q=QUESTIONS[i];
+        return `<div class="review"><b>${esc(q.prompt)}</b><p>你的答案：${esc(answerText(i)||'（未作答）')}</p><p><b>正解：${esc(q.type==='choice' ? q.options[q.answer] : q.answer)}</b></p><p>${esc(q.explain)}</p></div>`;
+      }).join('') : '<p>全部答對，太棒了！</p>'}
+    </div>`;
+}
+
+function renderHistory(){
+  const d = storage();
+  app.innerHTML = `<div class="card"><h2>我的模擬考紀錄</h2>${d.records.length ? d.records.slice().reverse().map(r=>`<p>${esc(r.at)}：<b>${r.score} 分</b>（${r.count} 題）</p>`).join('') : '<p>目前沒有模擬考紀錄。</p>'}<p class="muted">成績只儲存在這台裝置的瀏覽器。</p></div>`;
+}
+
+screen('home');
+</script>
+</body>
+</html>
