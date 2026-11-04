@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#3557a6">
-<title>五年級英文｜考前練習室</title>
+<title>English Quest V5｜翻卡手寫考前練習</title>
 <style>
 :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;background:#f3f6ff;color:#263552}
 *{box-sizing:border-box}
@@ -27,9 +27,14 @@ button.light{background:#e8eeff;color:#3557a6}
 button.ghost{background:#f5f8ff;color:#3557a6;border:1px solid #ccdaf8}
 button:disabled{opacity:.45;cursor:not-allowed}
 select,input,textarea{width:100%;border:1px solid #bfd0f1;padding:12px;background:#fff}
-.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .tabs button{background:#fff;color:#3557a6;border:1px solid #d7e1f8;padding:11px 8px}
 .tabs button.active{background:#1f3571;color:#fff;border-color:#1f3571}
+.tabs .flash-entry{background:#ffebaa;border:2px solid #f5b93e;color:#50370b;font-weight:900}
+.tabs .flash-entry.active{background:#1f3571;color:white;border-color:#1f3571}
+.flash-hero{padding:19px;background:linear-gradient(120deg,#fff0af,#fff7da);border:2px solid #eac55e;border-radius:18px;margin:14px 0}
+.flash-hero button{font-size:21px;background:#1f3571;width:100%;margin-top:8px}
+.version{display:inline-block;margin-top:6px;font-size:13px;font-weight:800;opacity:.95}
 .progress{height:10px;background:#e8edfa;border-radius:999px;overflow:hidden;margin:14px 0}
 .progress>div{height:100%;background:#6488d9}
 .choices{display:grid;gap:10px}
@@ -55,6 +60,10 @@ background-color:#fff;resize:vertical}
 .wordchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .wordchips span{background:#f2f6ff;border:1px solid #d7e2fa;border-radius:999px;padding:5px 10px;font-size:14px}
 .section-title{margin:6px 0 10px;font-size:18px;font-weight:800;color:#3557a6}
+.flip-card{width:100%;min-height:245px;background:linear-gradient(135deg,#e8eeff,#fdfaff);color:#233e7d;border:3px solid #99b4ef;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:22px;text-align:center;touch-action:manipulation;box-shadow:0 10px 28px rgba(35,62,125,.13)}
+.flip-card .big{font-size:clamp(29px,6vw,49px);line-height:1.4;font-weight:900;overflow-wrap:anywhere}
+.flip-card.revealed{background:linear-gradient(135deg,#e0faea,#f3fcf8);border-color:#75cba0;color:#176645}
+.flip-card .helper{font-size:15px;font-weight:500;color:#64718b}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 @media (max-width:680px){.tabs{grid-template-columns:repeat(2,1fr)} .sentence{font-size:20px}}
 </style>
@@ -63,12 +72,13 @@ background-color:#fff;resize:vertical}
 <header class="top">
   <div class="inside">
     <span>國小五年級・英文</span>
-    <h1>English Quest 英文考前練習室</h1>
-    <p>依 Unit 1、Unit 2 與兩張評量卷題型設計｜已加強 <b>手寫拼字</b> 與 <b>短句書寫</b>｜可在 iPad + Apple Pencil 使用</p>
+    <h1>English Quest 英文考前練習室</h1><span class="version">目前版本 V5.0｜2026-11-04</span>
+    <p><b>V5.0｜翻卡遊戲強化版</b>・Unit 1 / Unit 2・Apple Pencil 手寫拼字與模擬考</p>
   </div>
 </header>
 <main class="main">
   <div class="tabs">
+    <button id="tab-flash" class="flash-entry" onclick="screen('flash')">🔄 單字翻卡</button>
     <button id="tab-home" onclick="screen('home')">複習重點</button>
     <button id="tab-practice" onclick="screen('practice')">小練習</button>
     <button id="tab-handwrite" onclick="screen('handwrite')">手寫拼字</button>
@@ -196,7 +206,7 @@ QUESTIONS.push(
 );
 
 const STORE_KEY = 'english_review_v2';
-const state = { page:'home', session:null };
+const state = { page:'home', session:null, flash:null };
 const app = document.getElementById('app');
 
 function esc(x){ return String(x).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -204,32 +214,34 @@ function shuffle(arr){ let a=[...arr]; for(let i=a.length-1;i>0;i--){ let j=Math
 function storage(){ try{return JSON.parse(localStorage.getItem(STORE_KEY)) || {records:[]}; }catch(e){ return {records:[]}; } }
 function saveStorage(obj){ localStorage.setItem(STORE_KEY, JSON.stringify(obj)); }
 function normalize(t){
-  return String(t||'')
+  return String(t??'')
     .toLowerCase()
-    .replace(/[’‘`]/g, "'")
+    .replace(/[’‘`＇]/g, "'")
     .replace(/\bit is\b/g,'it\'s')
     .replace(/\bhe is\b/g,"he\'s")
-    .replace(/\s+/g,' ')
+    .replace(/[\s\u00a0\u3000]+/g,' ')
     .trim()
-    .replace(/[^a-z0-9' ]/g,'');
+    .replace(/[^a-z0-9' ]/g,'')
+    .trim();
 }
-function pageLabel(p){ return ({home:'複習重點',practice:'小練習',handwrite:'手寫拼字',exam:'模擬考',history:'成績紀錄'})[p] || ''; }
-function updateTabs(){ ['home','practice','handwrite','exam','history'].forEach(p=>{ const el=document.getElementById('tab-'+p); if(el) el.classList.toggle('active',state.page===p); }); }
+function pageLabel(p){ return ({home:'複習重點',flash:'翻卡遊戲',practice:'小練習',handwrite:'手寫拼字',exam:'模擬考',history:'成績紀錄'})[p] || ''; }
+function updateTabs(){ ['home','flash','practice','handwrite','exam','history'].forEach(p=>{ const el=document.getElementById('tab-'+p); if(el) el.classList.toggle('active',state.page===p); }); }
 function screen(p){ state.page=p; state.session=null; updateTabs(); render(); window.scrollTo({top:0,behavior:'smooth'}); }
-function render(){ updateTabs(); if(state.page==='home') return renderHome(); if(state.page==='history') return renderHistory(); if(!state.session) return renderSetup(); return renderQuestion(); }
+function render(){ updateTabs(); if(state.page==='home') return renderHome(); if(state.page==='flash') return renderFlash(); if(state.page==='history') return renderHistory(); if(!state.session) return renderSetup(); return renderQuestion(); }
 
 function renderHome(){
   const total = QUESTIONS.length;
   const handCount = QUESTIONS.filter(q=>q.type==='handwrite').length;
   app.innerHTML = `
   <div class="card">
-    <span class="badge">先複習再測驗</span>
+    <div class="flash-hero"><strong style="font-size:23px">🔄 新版單字翻卡遊戲</strong><p>點卡片看英文、選「我會了」或「還不熟」。包含星期、科目、數字和課本重點單字。</p><button onclick="screen('flash')">開始翻卡練習 →</button></div><span class="badge">先複習再測驗</span>
     <h2>今天的任務</h2>
     <p>這一版新增了考卷式 <b>上句英文問句＋下句自己寫英文回答</b>，並特別加強 <b>手寫拼字</b>、<b>句型短答</b> 與 <b>iPad Pencil 書寫作答</b>。如果孩子的拼字基礎比較弱，建議先從「手寫拼字」開始，再做小練習或模擬考。</p>
     <div class="grid2">
       <div class="note">
         <div class="section-title">使用建議</div>
         <ul class="list">
+          <li>手寫辨識的大小寫不影響對錯，例如 <b>Math</b> 與 <b>math</b> 都會算對。</li>
           <li>在 iPad 的作答框內，可直接用 <b>Apple Pencil 手寫</b>，系統會用 Scribble 幫忙轉成文字。</li>
           <li>先按 <span class="kbd">提示</span> 看首字母，再自己拼完整單字。</li>
           <li>練上下句時先看情境線索，完整寫出 Yes / No 和後面的句子。</li>
@@ -248,8 +260,9 @@ function renderHome(){
       </div>
     </div>
     <div class="row" style="margin-top:12px">
-      <button onclick="screen('handwrite')">先做手寫拼字</button>
-      <button class="light" onclick="screen('practice')">開始一般練習</button>
+      <button onclick="screen('flash')">翻卡記單字</button>
+      <button class="light" onclick="screen('handwrite')">手寫拼字</button>
+
     </div>
   </div>
 
@@ -278,6 +291,54 @@ function renderHome(){
   </div>
 
   <div class="note">提醒：原考卷中的聽力題這裡改為同知識點的閱讀、拼字與手寫練習，避免假裝有音檔但其實沒有。</div>`;
+}
+
+
+// V5 單字翻卡：新增多組補充單字，並提供「還不熟」重練與進度。
+const EXTRA_FLASH = [
+  ['星期二','Tuesday'],['星期三','Wednesday'],['星期四','Thursday'],['星期六','Saturday'],
+  ['星期日','Sunday'],['星期五','Friday'],['今天','today'],['明天','tomorrow'],
+  ['一堂課；班級','class'],['科目','subject'],['最喜歡的','favorite'],
+  ['十','ten'],['二十','twenty'],['三十','thirty'],['四十','forty'],['五十','fifty'],
+  ['六十','sixty'],['七十','seventy'],['八十','eighty'],['九十','ninety'],['一百','one hundred'],
+  ['預訂','book'],['門票','ticket'],['令人讚嘆的','awesome'],['化石','fossil'],
+  ['恐龍','dinosaur'],['模型','model'],['完成','done'],['決定','decide'],
+  ['營業時間','opening hours'],['接住','catch'],['冰上曲棍球','ice hockey'],
+  ['球棒','stick'],['隊友','teammate'],['小心','be careful'],['避免','avoid'],
+  ['撞到','bump into'],['比賽','contest'],['在桌子下','under the table'],
+  ['在廚房裡','in the kitchen'],['在書桌上','on the desk'],['在箱子旁','by the box']
+];
+function flashDeck(){
+  const seen=new Set();
+  const base=QUESTIONS.filter(q=>q.type==='choice'&&q.area==='vocab')
+    .map(q=>({front:q.prompt.replace(/^「|」的英文是？$/g,''),back:q.options[q.answer]}));
+  return [...base,...EXTRA_FLASH.map(([front,back])=>({front,back}))].filter(x=>{
+    const key=normalize(x.back); if(seen.has(key))return false;seen.add(key);return true;
+  });
+}
+function flashStart(){
+  const deck=shuffle(flashDeck());
+  state.flash={deck,index:0,revealed:false,known:0,missed:0,redo:[],round:1};renderFlash();
+}
+function flashFlip(){ if(!state.flash)flashStart();else{state.flash.revealed=!state.flash.revealed;renderFlash();} }
+function flashMark(known){
+  const f=state.flash;if(!f)return;
+  if(known)f.known++;else{f.missed++;f.redo.push(f.deck[f.index]);}
+  f.index++;f.revealed=false;renderFlash();
+}
+function flashRetry(){
+  const f=state.flash;if(!f||!f.redo.length)return;
+  f.deck=shuffle(f.redo);f.redo=[];f.index=0;f.revealed=false;f.known=0;f.missed=0;f.round++;renderFlash();
+}
+function renderFlash(){
+  if(!state.flash)flashStart();
+  const f=state.flash;
+  if(f.index>=f.deck.length){
+    app.innerHTML=`<div class="card"><span class="badge">翻卡完成・第 ${f.round} 輪</span><h2>這輪翻完 ${f.deck.length} 張！</h2><p>我會了：${f.known} 張｜還不熟：${f.missed} 張</p><div class="row">${f.redo.length?'<button onclick="flashRetry()">只練還不熟的 '+f.redo.length+' 張</button>':''}<button class="light" onclick="flashStart()">重新洗牌全部</button></div><button class="ghost" style="margin-top:12px;width:100%" onclick="screen('handwrite')">接著練 Apple Pencil 手寫</button></div>`;
+    return;
+  }
+  const q=f.deck[f.index];const pct=Math.round(f.index/f.deck.length*100);
+  app.innerHTML=`<div class="card"><span class="badge">🔄 V5 翻卡遊戲・Unit 1 / Unit 2</span><h2>第 ${f.index+1} / ${f.deck.length} 張</h2><div class="progress"><div style="width:${pct}%"></div></div><p class="muted">先看中文，在心中拼出英文，再點卡片翻面。</p><button class="flip-card ${f.revealed?'revealed':''}" onclick="flashFlip()" aria-label="翻轉單字卡"><span class="helper">${f.revealed?'英文答案':'中文提示'}</span><span class="big">${esc(f.revealed?q.back:q.front)}</span><span class="helper">點一下${f.revealed?'翻回中文':'查看英文答案'}</span></button><div class="row" style="margin-top:16px"><button class="light" onclick="flashMark(false)">還不熟・稍後重練</button><button onclick="flashMark(true)">我會了・下一張</button></div><p class="muted">本輪掌握 ${f.known} 張｜需要加強 ${f.missed} 張</p><button class="ghost" onclick="flashStart()">重新洗牌</button></div>`;
 }
 
 function renderSetup(){
@@ -391,7 +452,7 @@ function renderQuestion(){
   }else{
     const small = normalize(q.answer).split(' ').length<=2 && q.answer.length<=18 ? ' small' : '';
     body = `<div class="writebox${small}">
-      <textarea aria-label="作答" spellcheck="false" autocapitalize="off" placeholder="可直接用 iPad 筆在這裡手寫作答" oninput="setWrite(this.value)">${esc(ans||'')}</textarea>
+      <textarea aria-label="作答" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="可直接用 iPad 筆在這裡手寫作答" oninput="setWrite(this.value)">${esc(ans||'')}</textarea>
     </div>`;
   }
   const label = q.type==='choice' ? (q.area==='vocab'?'單字選擇':'閱讀／文法') : (q.type==='handwrite'?'手寫拼字':q.type==='dialog'?'上下句問答':'短句書寫');
@@ -402,6 +463,7 @@ function renderQuestion(){
       <div class="progress"><div style="width:${100*(s.index+1)/s.ids.length}%"></div></div>
       ${q.context ? `<div class="note" style="margin-bottom:12px"><b>情境線索：</b>${esc(q.context)}</div>` : ''}<p class="sentence">${esc(q.prompt)}</p>
       ${body}
+      ${q.type!=='choice' ? '<p class="muted">Apple Pencil 自動產生的大寫不扣分，Math = math；單字拼法仍需正確。</p>' : ''}
       ${(!s.exam && showHint && q.hint) ? `<div class="hint"><b>提示：</b>${esc(q.hint)}</div>` : ''}
       ${(!s.exam && checked) ? `<div class="answer"><b>${isCorrect(idx)?'答對了！':'再加油，這題可以再練一次'}</b><p><b>參考答案：</b>${esc(q.type==='choice' ? q.options[q.answer] : q.answer)}</p><p>${esc(q.explain)}</p></div>` : ''}
       <div class="row" style="margin-top:14px">
